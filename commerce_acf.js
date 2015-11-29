@@ -1,24 +1,22 @@
 (function ($) {
   Drupal.behaviors.commerceAcf = {
     attach: function (context, settings) {
-      if ($('.view-commerce-cart-form').length > 0) {
-        $('.view-commerce-cart-form input[name^="edit_quantity"]').each(function() {
-          var $element = $(this);
+      $('.view-commerce-cart-form input[name^="edit_quantity"]', context).each(function() {
+        var $element = $(this);
 
-          $element.keyup(function() {
-            Drupal.commerceAcf.quantityChanged(this);
-          });
-
-          if ($element.hasClass('quantity-with-spinner')) {
-            $element.spinner({
-              min: 1,
-              stop: function(event, ui) {
-                $(event.target).keyup();
-              }
-            })
-          }
+        $element.keyup(function() {
+          Drupal.commerceAcf.quantityChanged(this);
         });
-      }
+
+        if ($element.hasClass('quantity-with-spinner')) {
+          $element.spinner({
+            min: 1,
+            stop: function(event, ui) {
+              $(event.target).keyup();
+            }
+          })
+        }
+      });
     }
   };
 

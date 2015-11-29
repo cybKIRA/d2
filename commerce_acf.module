@@ -119,10 +119,11 @@ function commerce_acf_ajax_update_form($form, &$form_state) {
   $order_id = commerce_cart_order_id($GLOBALS['user']->uid);
   $cart_view_output = commerce_embed_view($view->name, $view->current_display, array($order_id));
 
+  $commands = array(ajax_command_replace('.view-commerce-cart-form', $cart_view_output));
+  drupal_alter('commerce_acf_commands', $commands);
+
   return array(
     '#type' => 'ajax',
-    '#commands' => array(
-      ajax_command_replace('.view-commerce-cart-form', $cart_view_output),
-    ),
+    '#commands' => $commands,
   );
 }
